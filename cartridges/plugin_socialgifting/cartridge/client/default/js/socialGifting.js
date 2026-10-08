@@ -47,6 +47,11 @@
             }).catch(function () { message('Unable to complete this request. Please try again.'); })
             .then(function () { if (button) button.disabled = false; });
     });
+    // Server timestamps are ISO UTC; show them in the shopper's local date and time.
+    document.querySelectorAll('time[datetime]:not(.sg-countdown)').forEach(function (node) {
+        var at = Date.parse(node.getAttribute('datetime'));
+        if (Number.isFinite(at)) node.textContent = new Date(at).toLocaleString();
+    });
     document.querySelectorAll('.sg-countdown').forEach(function (node) {
         var eventAt = Date.parse(node.getAttribute('datetime'));
         if (!Number.isFinite(eventAt)) return;

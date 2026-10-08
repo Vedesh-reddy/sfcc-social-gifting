@@ -7,7 +7,7 @@
     </form>
     <form class="sg-form" action="${URLUtils.https('RegistryPoll-Create')}" method="post"><isinclude template="registry/context" />
         <h2>${Resource.msg('poll.create', 'socialgifting', null)}</h2>
-        <label>${Resource.msg('field.name', 'socialgifting', null)}<input class="form-control" name="title" required maxlength="150" /></label>
+        <label>${Resource.msg('poll.title', 'socialgifting', null)}<input class="form-control" name="title" required maxlength="150" /></label>
         <fieldset><legend>${Resource.msg('poll.options', 'socialgifting', null)}</legend><isloop items="${pdict.registry.items}" var="option"><label class="sg-check"><input type="checkbox" name="sgPollOption" value="${option.key}" /> <isprint value="${option.name}" encoding="htmlcontent" /></label></isloop></fieldset>
         <input type="hidden" name="options" />
         <label>${Resource.msg('poll.end', 'socialgifting', null)}<input class="form-control" name="endAt" required placeholder="2026-12-12T18:00:00+05:30" /></label>
