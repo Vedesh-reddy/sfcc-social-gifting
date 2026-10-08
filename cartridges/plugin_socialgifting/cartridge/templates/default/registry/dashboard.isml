@@ -3,7 +3,7 @@
     <main class="container sg-page">
         <h1>${Resource.msg('dashboard.title', 'socialgifting', null)}</h1>
         <a class="btn btn-primary" href="${URLUtils.https('Registry-Create')}">${Resource.msg('registry.create', 'socialgifting', null)}</a>
-        <div class="sg-grid">
+        <div class="sg-grid d-flex flex-wrap">
             <isloop items="${pdict.registries}" var="registry">
                 <article class="sg-card">
                     <h2><a href="${registry.url}"><isprint value="${registry.name}" encoding="htmlcontent" /></a></h2>

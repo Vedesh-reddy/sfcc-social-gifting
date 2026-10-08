@@ -21,12 +21,12 @@
                     <label>${Resource.msg('product.variant', 'socialgifting', null)}<input class="form-control" name="pid" required maxlength="100" /></label>
                     <label>${Resource.msg('quantity', 'socialgifting', null)}<input class="form-control" type="number" name="quantity" min="1" max="1000" value="1" required /></label>
                     <label>${Resource.msg('notes', 'socialgifting', null)}<textarea class="form-control" name="notes" maxlength="1000"></textarea></label>
-                    <label class="sg-check"><input type="checkbox" name="allowGroupGifting" value="true" /> ${Resource.msg('group.allow', 'socialgifting', null)}</label>
+                    <label class="sg-check d-flex align-items-center"><input type="checkbox" name="allowGroupGifting" value="true" /> ${Resource.msg('group.allow', 'socialgifting', null)}</label>
                     <button class="btn btn-primary" type="submit">${Resource.msg('product.add', 'socialgifting', null)}</button>
                 </form>
             </details>
         </isif>
-        <div class="sg-grid"><isloop items="${pdict.registry.items}" var="item"><isinclude template="registry/registryItem" /></isloop></div>
+        <div class="sg-grid d-flex flex-wrap"><isloop items="${pdict.registry.items}" var="item"><isinclude template="registry/registryItem" /></isloop></div>
         <isloop items="${pdict.registry.polls}" var="poll"><isinclude template="registry/poll" /></isloop>
         <isif condition="${pdict.registry.canManage}"><isinclude template="registry/collaborators" /></isif>
         <section class="sg-card"><h2>${Resource.msg('activity.title', 'socialgifting', null)}</h2><ul><isloop items="${pdict.registry.activity}" var="event"><li><time datetime="${event.at}"><isprint value="${event.at}" encoding="htmlcontent" /></time> — ${Resource.msg('activity.' + event.type, 'socialgifting', event.type)}</li></isloop></ul></section>
