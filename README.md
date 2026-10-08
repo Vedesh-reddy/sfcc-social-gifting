@@ -19,3 +19,19 @@ npm run build
 Import metadata before adding the cartridge to the site path. Features default to disabled. Live card capture/refund, private delivery and concurrent checkout still need storefront verification; group-gift fulfillment requires the merchant integration described in the guide.
 
 Keep credentials in an ignored local `dw.json` or environment configuration. Never commit session cookies or concurrency fixture secrets.
+
+## Social gifting storefront screenshots
+
+Actual Chrome captures of the current storefront. The registry feature is not active yet.
+
+### Existing storefront
+
+The homepage loads successfully (HTTP 200).
+
+![Existing storefront homepage](cartridges/plugin_socialgifting/docs/screenshots/existing-storefront.png)
+
+### Registry activation blocker
+
+`Registry-Dashboard` returns HTTP 500: “Pipeline not found (Registry)”. This records the missing activation, not a working registry screen.
+
+![Registry route showing the missing controller error](cartridges/plugin_socialgifting/docs/screenshots/registry-route-unavailable.png)
