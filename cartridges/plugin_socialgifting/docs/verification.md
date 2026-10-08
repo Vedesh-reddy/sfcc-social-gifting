@@ -1,16 +1,57 @@
 # Verification — 8 October 2026
 
-Local verification passed: 1,074 RefArch unit tests (including 42 social-gifting tests), full RefArch lint plus cartridge JavaScript and SCSS lint, ISML lint, production JS/CSS build, and all three metadata/job XML files against Salesforce schemas.
+## Automated
 
-## Storefront browser screenshots
+- 42 unit tests (`npm test`), JavaScript lint, production JS/CSS build.
+- Metadata and job XML validate against the Salesforce schemas.
 
-Captured from the existing storefront using headless Google Chrome, at 1440 × 1000. These are live browser captures, not UI mockups.
+## Sandbox
 
-- [Existing storefront](screenshots/existing-storefront.png): `Home-Show` returned HTTP 200.
-- [Registry route unavailable](screenshots/registry-route-unavailable.png): `Registry-Dashboard` returned HTTP 500 with “Pipeline not found (Registry)”. The new cartridge is not active on the storefront path. This screenshot documents the activation blocker, not a working registry.
+Sandbox `zyeu-002`, site `RefArch_Practice`, SFRA 8. The cartridge was uploaded, the metadata in
+`metadata/social-gifting` imported, and `SocialGiftingEnabled`, `WeddingRegistryEnabled`,
+`GroupGiftingEnabled`, `AnonymousGiftingEnabled`, `RegistryCommentsEnabled`, `RegistryPollsEnabled`,
+`RegistryReservationEnabled`, `GuestVotingEnabled` and `RegistryPurchaseEnabled` switched on.
+Flows were driven in headless Chrome; screenshots are in the [feature guide](../../../README.md#features).
 
-Business Manager setup is left to the repository owner. No code deployment, metadata import, cartridge-path change, payment collection or external email dispatch was performed during this verification.
+| Flow | Result |
+| --- | --- |
+| Guest opens `Registry-Dashboard` | Redirected to login |
+| Create a wedding registry (public, active, address from address book) | Created; redirected to the registry page |
+| Enable privacy and participation options | Saved |
+| Add the selected variant from the product page | Added; a second add of the same variant is refused |
+| Add a product by ID with quantity, notes and group gifting | Added |
+| Comment on an item | Shown under the item, escaped |
+| Create a poll over two items, guest voting allowed | Shown to members and guests; guest vote accepted |
+| Invite a co-owner by email | "Invitation sent." (acceptance not tested) |
+| Create a group gift | "Contribute · 0 / 150.00 USD" on the item; group gift page opens |
+| Guest reserves an item | Reserved: 1, Remaining: 0 |
+| Second visitor reserves or buys the same unit | Refused: "This gift has already been purchased or reserved…" |
+| Guest buys a registry item anonymously | Checkout starts at payment with the recipient hidden; order 00000203 placed with the basic-credit test processor; item shows Purchased: 1 |
+| Normal Add to Cart and checkout | Unaffected once the metadata is imported |
 
-Feature screenshots and live checkout/privacy/concurrency verification require activation first. The three opt-in concurrency tests were not run because no disposable sandbox fixture was configured. Production enablement still requires real card capture/refund and merchant-funded fulfillment testing described in the cartridge README.
+## Fixed during verification
 
-The standalone repository also passed its own dependency installation, 42 unit tests, JavaScript lint and production JS/CSS build. Build output includes a Sass legacy API deprecation warning.
+- **Every registry page returned HTTP 500** (`Header name Cache-Control is not allowed to be set or added`).
+  SFCC forbids setting `Cache-Control`; the middleware now relies on `cachePeriod = 0` and a past
+  `Expires`, which keep responses out of shared caches.
+- **Registry gifts were assigned the store-pickup method.** The first applicable shipping method was
+  `005 Store Pickup`. Registry deliveries now skip methods with `storePickupEnabled` and prefer the
+  site default.
+- **Add to Cart failed site-wide** while the cartridge was on the path without its metadata
+  (`Unknown dynamic property 'sgContributionKey'`). This is the documented install order: import the
+  metadata first.
+
+## Observed, not changed
+
+- Counts on My Registries and remaining quantities are printed with a decimal (`3.0 items`, `Remaining: 1.0`).
+- The poll title field is labelled "Registry name".
+- Poll results are not visible to the voter unless "Show results before closing" is set.
+
+## Not verified
+
+- Contribution payments: no funding product (`GroupGiftContributionProductID`) was configured, so no
+  contribution was paid, captured or refunded.
+- Group-gift fulfilment (`app.socialGifting.fulfillment.createOrder`), invitation acceptance, secret
+  gift mode, archive, notification emails and scheduled jobs.
+- The opt-in concurrency tests in `test/integration` (they need a disposable sandbox fixture).
+- The SFRA basic-credit processor is a test processor; it does not prove real card capture.
