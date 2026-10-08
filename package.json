@@ -1,0 +1,46 @@
+{
+  "name": "plugin_socialgifting",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SFRA social gifting and event registry overlay",
+  "scripts": {
+    "test:socialgifting": "mocha 'test/unit/plugin_socialgifting/domain.js'",
+    "lint:socialgifting": "eslint cartridges/plugin_socialgifting/cartridge --ext .js",
+    "build:socialgifting": "sgmf-scripts --compile js --cartridgeName plugin_socialgifting && sgmf-scripts --compile css --cartridgeName plugin_socialgifting",
+    "test": "npm run test:socialgifting",
+    "lint": "npm run lint:socialgifting",
+    "build": "npm run build:socialgifting"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^6.0.0",
+    "css-minimizer-webpack-plugin": "^5.0.1",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "isml-linter": "^5.26.4",
+    "mini-css-extract-plugin": "^2.7.6",
+    "minimist": "^1.2.6",
+    "mocha": "^10.0.0",
+    "postcss-loader": "^7.0.0",
+    "sass": "^1.69.7",
+    "sass-loader": "^13.3.2",
+    "sgmf-scripts": "^3.1.0",
+    "webpack-remove-empty-scripts": "^1.0.4",
+    "autoprefixer": "^10.4.14"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "not ie > 0"
+  ],
+  "packageName": "plugin_socialgifting",
+  "engines": {
+    "node": ">=18"
+  }
+}

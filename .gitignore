@@ -1,0 +1,8 @@
+node_modules/
+cartridges/*/cartridge/static/
+dw.json
+.env
+.env.*
+*.log
+.DS_Store
+coverage/
