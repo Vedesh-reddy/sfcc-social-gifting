@@ -7,8 +7,8 @@
             <isloop items="${pdict.registries}" var="registry">
                 <article class="sg-card">
                     <h2><a href="${registry.url}"><isprint value="${registry.name}" encoding="htmlcontent" /></a></h2>
-                    <p><isprint value="${registry.status}" encoding="htmlcontent" /></p>
-                    <p>${registry.itemCount} ${Resource.msg('dashboard.items', 'socialgifting', null)}<isif condition="${registry.giftCount !== null}"> · ${registry.giftCount} ${Resource.msg('quantity.purchased', 'socialgifting', null)}</isif><isif condition="${registry.reservedCount !== null}"> · ${registry.reservedCount} ${Resource.msg('quantity.reserved', 'socialgifting', null)}</isif></p>
+                    <p>${Resource.msg('status.' + registry.status, 'socialgifting', registry.status)}</p>
+                    <p>${registry.itemCount.toFixed(0)} ${Resource.msg('dashboard.items', 'socialgifting', null)}<isif condition="${registry.giftCount !== null}"> · ${registry.giftCount.toFixed(0)} ${Resource.msg('quantity.purchased', 'socialgifting', null)}</isif><isif condition="${registry.reservedCount !== null}"> · ${registry.reservedCount.toFixed(0)} ${Resource.msg('quantity.reserved', 'socialgifting', null)}</isif></p>
                     <isif condition="${registry.eventAt}"><time datetime="${registry.eventAt}"><isprint value="${registry.eventAt}" encoding="htmlcontent" /></time></isif>
                 </article>
             </isloop>
