@@ -2,7 +2,7 @@
 
 `plugin_socialgifting` adds event registries, exact-variant items, secure link sharing, invitations and roles, comments, polls, reservations, anonymous gifts, secret gift views, group contribution accounting and lifecycle jobs. It overlays SFRA and the existing Smart Commerce/Wishlist cartridges; it does not modify `app_storefront_base`.
 
-The implementation is locally tested, **not sandbox-certified or deployed**. Purchases and group contributions are off by default. Import the metadata before adding the cartridge to the site path: inherited checkout/model code references those custom attributes even for ordinary orders.
+The cartridge is deployed and its storefront flows were exercised on an SFRA 8 sandbox on 8 October 2026 — see the [feature guide with screenshots](../../README.md#features) and the [verification report](docs/verification.md). Live card capture for contributions, merchant fulfilment, invitation acceptance and the concurrency tests are not yet verified. Purchases and group contributions are off by default. Import the metadata before adding the cartridge to the site path: inherited checkout/model code references those custom attributes even for ordinary orders.
 
 ## Install
 
@@ -107,27 +107,11 @@ Then verify in a real browser: create/edit/share/revoke; invitation login and ac
 
 ## Remaining production integration work
 
-- Business Manager import, live cartridge path, shipping/payment settings, sender configuration and scheduled jobs have not been applied by this change.
+- On the author's sandbox the metadata is imported, the cartridge is on the path and the features are enabled; job schedules, the contribution funding product and sender configuration were not set up.
 - Real gateway capture/refund and merchant-funded fulfillment must be configured and tested. There is no new card gateway or default fulfillment/void adapter.
-- The sandbox/browser/payment/concurrency checks above have not run locally. Do not enable transactional features in production based solely on the unit suite.
+- The browser checks for registries, items, reservations, comments, polls, invitations (sending), group-gift creation and a private registry purchase ran on the sandbox. Payment capture/refund for contributions, fulfilment and the concurrency tests have not run. Do not enable transactional features in production based solely on these checks.
 - The initial UI uses explicit event timestamps with UTC offsets, generic comment/activity labels, bounded recent comments/polls, and one campaign per item. Full directory search, paging through older discussions, per-member display profiles, cover-image rendering and analytics dispatch are not implemented. Financial/token retention beyond the included cleanup requires a merchant policy and worker before high-volume rollout.
 
 ## Browser verification
 
-See the [verification report and storefront screenshots](docs/verification.md). The current storefront has not activated this cartridge; the registry screenshot records that blocker.
-
-## Social gifting storefront screenshots
-
-Actual Chrome captures of the current storefront. The registry feature is not active yet.
-
-### Existing storefront
-
-The homepage loads successfully (HTTP 200).
-
-![Existing storefront homepage](docs/screenshots/existing-storefront.png)
-
-### Registry activation blocker
-
-`Registry-Dashboard` returns HTTP 500: “Pipeline not found (Registry)”. This records the missing activation, not a working registry screen.
-
-![Registry route showing the missing controller error](docs/screenshots/registry-route-unavailable.png)
+See the [verification report](docs/verification.md) and the [feature guide](../../README.md#features) for screenshots of every flow exercised on the sandbox.
