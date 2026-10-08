@@ -4,7 +4,7 @@
     <isif condition="${pdict.gift.canContribute}"><form class="sg-form sg-card" action="${URLUtils.https('GroupGift-Contribute')}" method="post"><isinclude template="registry/csrf" /><input type="hidden" name="registryKey" value="${pdict.gift.registryKey}" /><input type="hidden" name="giftKey" value="${pdict.gift.key}" />
         <label>${Resource.msg('group.amount', 'socialgifting', null)} (${pdict.gift.currency})<input class="form-control" name="amount" inputmode="decimal" required maxlength="13" /></label>
         <label>${Resource.msg('group.displayName', 'socialgifting', null)}<input class="form-control" name="displayName" maxlength="80" /></label>
-        <isif condition="${pdict.gift.allowAnonymous}"><label class="sg-check"><input type="checkbox" name="anonymous" value="true" /> ${Resource.msg('gift.anonymous', 'socialgifting', null)}</label></isif>
+        <isif condition="${pdict.gift.allowAnonymous}"><label class="sg-check d-flex align-items-center"><input type="checkbox" name="anonymous" value="true" /> ${Resource.msg('gift.anonymous', 'socialgifting', null)}</label></isif>
         <p>${Resource.msg('group.payment', 'socialgifting', null)}</p>
         <button class="btn btn-primary" type="submit">${Resource.msg('group.contribute', 'socialgifting', null)}</button>
     </form></isif>
