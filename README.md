@@ -113,7 +113,8 @@ what was asked for.
    ![Add the selected variant to a registry](cartridges/plugin_socialgifting/docs/screenshots/pdp-add-to-registry.png)
 
 2. Owners can also add by product ID from the registry page, with quantity, notes and group gifting.
-   Each item card shows wanted, purchased, reserved and remaining quantities.
+   Each item card shows wanted, purchased, reserved and remaining quantities, and owners edit quantity
+   and notes in place.
 
    ![Registry items for the owner](cartridges/plugin_socialgifting/docs/screenshots/registry-owner-items.png)
 
@@ -125,7 +126,8 @@ limited to owners and editors.
 ### 4. Public registry page
 
 **What it does.** Guests open the registry by its URL and see items with live availability, without
-any owner controls.
+any owner controls. Items that are fully purchased or reserved say so and link to other gifts instead
+of offering gift buttons.
 
 ![Public registry page for a guest](cartridges/plugin_socialgifting/docs/screenshots/registry-guest-view.png)
 
@@ -143,7 +145,7 @@ registry stops anyone else from taking the same unit.
 
    ![Item reserved by a guest](cartridges/plugin_socialgifting/docs/screenshots/registry-reserved.png)
 
-2. Another visitor trying to reserve or buy the same unit is refused.
+2. If two visitors try for the same last unit at the same moment, the second one is refused.
 
    ![Second gifting of the same unit refused](cartridges/plugin_socialgifting/docs/screenshots/registry-double-gift-blocked.png)
 
@@ -248,8 +250,8 @@ shown to them.
 
 ![Registry activity trail](cartridges/plugin_socialgifting/docs/screenshots/registry-activity.png)
 
-Entries are generic event codes with timestamps; they never include donor names, items bought in
-secret mode, or addresses.
+Entries are short generic labels in the shopper's local time; they never include donor names, items
+bought in secret mode, or addresses.
 
 ## Setup
 
