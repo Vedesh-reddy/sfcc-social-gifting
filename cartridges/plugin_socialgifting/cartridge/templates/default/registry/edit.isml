@@ -23,7 +23,7 @@
             </select></label>
             <label>${Resource.msg('field.status', 'socialgifting', null)}<select class="form-select" name="status"><option value="DRAFT">${Resource.msg('status.DRAFT', 'socialgifting', null)}</option><option value="ACTIVE" <isif condition="${pdict.registry && pdict.registry.status === 'ACTIVE'}">selected</isif>>${Resource.msg('status.ACTIVE', 'socialgifting', null)}</option></select></label>
             <fieldset><legend>${Resource.msg('privacy.title', 'socialgifting', null)}</legend>
-                <isloop items="${pdict.privacyFields}" var="field"><label class="sg-check"><input type="checkbox" name="${field}" value="true" <isif condition="${pdict.registry && pdict.registry[field]}">checked</isif> /> ${Resource.msg('privacy.' + field, 'socialgifting', field)}</label></isloop>
+                <isloop items="${pdict.privacyFields}" var="field"><label class="sg-check d-flex align-items-center"><input type="checkbox" name="${field}" value="true" <isif condition="${pdict.registry && pdict.registry[field]}">checked</isif> /> ${Resource.msg('privacy.' + field, 'socialgifting', field)}</label></isloop>
             </fieldset>
             <button class="btn btn-primary" type="submit">${Resource.msg('save', 'socialgifting', null)}</button>
         </form>
