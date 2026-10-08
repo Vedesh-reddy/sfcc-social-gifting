@@ -28,8 +28,8 @@ function actor(req, key) {
  */
 function noCache(res) {
     res.cachePeriod = 0;
+    // SFCC rejects a Cache-Control header; cachePeriod 0 and a past Expires keep the response private.
     res.base.setExpires(new Date(0));
-    res.setHttpHeader('Cache-Control', 'private, no-store');
     res.setHttpHeader('Referrer-Policy', 'no-referrer');
     res.setHttpHeader('X-Content-Type-Options', 'nosniff');
 }
