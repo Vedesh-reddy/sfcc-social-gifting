@@ -40,12 +40,13 @@ Flows were driven in headless Chrome; screenshots are in the [feature guide](../
 - **Add to Cart failed site-wide** while the cartridge was on the path without its metadata
   (`Unknown dynamic property 'sgContributionKey'`). This is the documented install order: import the
   metadata first.
-
-## Observed, not changed
-
-- Counts on My Registries and remaining quantities are printed with a decimal (`3.0 items`, `Remaining: 1.0`).
-- The poll title field is labelled "Registry name".
-- Poll results are not visible to the voter unless "Show results before closing" is set.
+- **Fully gifted items still offered gift buttons, and every visitor saw "Cancel reservation".**
+  ISML treats an empty string as true, so an empty reservation key passed `isif`. The conditions now
+  use explicit booleans. The server already refused these actions; now the page matches.
+- **Display fixes:** counts printed as decimals (`3.0 items`, `Remaining: 1.0`); dates printed as raw
+  ISO timestamps; activity entries showed internal codes (`GROUP_GIFT_CREATED`); the dashboard showed
+  `ACTIVE`; the poll question field was labelled "Registry name". Counts are whole numbers, dates are
+  shown in the shopper's local time, and activity, status and the poll label use readable text.
 
 ## Not verified
 
