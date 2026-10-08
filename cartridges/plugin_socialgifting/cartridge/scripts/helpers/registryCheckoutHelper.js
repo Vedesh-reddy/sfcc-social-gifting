@@ -54,9 +54,13 @@ function add(actor, input) {
         require('*/cartridge/scripts/checkout/checkoutHelpers').copyCustomerAddressToShipment(address, shipment);
         shipment.custom.sgPrivateRegistryDelivery = true;
         shipment.shippingAddress.custom.sgPrivateDelivery = true;
-        var methods = ShippingMgr.getShipmentShippingModel(shipment).applicableShippingMethods;
+        // Registry gifts ship to the recipient, so store-pickup methods never apply; prefer the site default.
+        var methods = ShippingMgr.getShipmentShippingModel(shipment).applicableShippingMethods.toArray().filter(function (method) {
+            return !method.custom.storePickupEnabled;
+        });
         if (!methods.length) v.fail('DELIVERY_UNAVAILABLE', 409);
-        shipment.setShippingMethod(methods[0]);
+        var preferred = ShippingMgr.defaultShippingMethod;
+        shipment.setShippingMethod(methods.filter(function (method) { return preferred && method.ID === preferred.ID; })[0] || methods[0]);
         require('*/cartridge/scripts/helpers/basketCalculationHelpers').calculateTotals(basket);
         return reservation.custom.publicKey;
     });
