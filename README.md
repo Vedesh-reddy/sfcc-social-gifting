@@ -263,6 +263,12 @@ Follow the [installation and integration guide](cartridges/plugin_socialgifting/
 3. Enable `SocialGiftingEnabled` and the features you need in Site Preferences → Social Gifting.
 4. Schedule the jobs in `metadata/social-gifting/jobs.xml` (imported without triggers).
 
+## Background job
+
+All background work runs in one Business Manager job, `SocialGifting-Job`, with its steps in order. A failing step doesn't stop the next one, and the last step, `ReportFailures`, then marks the job `ERROR`.
+
+Upgrading from a version with several jobs? Import `metadata/retired-jobs/jobs.xml` once to delete the old ones.
+
 ## Verification status
 
 What was exercised live and what still needs merchant integration is listed in the

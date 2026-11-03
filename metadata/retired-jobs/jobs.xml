@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
+    <job job-id="SocialGifting-RegistryLifecycleJob" mode="delete">
+        <triggers/>
+    </job>
+    <job job-id="SocialGifting-ReconcileRegistryOrders" mode="delete">
+        <triggers/>
+    </job>
+    <job job-id="SocialGifting-SendRegistryNotifications" mode="delete">
+        <triggers/>
+    </job>
+</jobs>
